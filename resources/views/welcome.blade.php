@@ -1,3 +1,13 @@
+<html>
+<head>
+
+</head>
+<body>
+<h1>lolo</h1>
+<h1>مرحبا</h1>
+</body>
+</html>
+{{--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +17,9 @@
 <title>my bills</title>
 <link href="https://fonts.googleapis.com/css?family=Harmattan&display=swap" rel="stylesheet">
 
-    {{-- Styles --}}
+    --}}
+{{-- Styles --}}{{--
+
     <style>
      .lore
      {
@@ -16,7 +28,9 @@
     </style>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('../resources/css/auth/auth.css') }}" rel="stylesheet">
-    {{-- font awesome --}}
+    --}}
+{{-- font awesome --}}{{--
+
     <link href="{{ asset('../resources/css/font-awesome.min.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
@@ -174,3 +188,4 @@
 
 
 
+--}}

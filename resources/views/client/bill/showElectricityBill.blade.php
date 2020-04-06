@@ -2,19 +2,29 @@
 @section('content')
     <section class="section overfree text-right">
         <div class="container">
-            <h2>الشركة السورية للكهرباء</h2>
+            <div class="d-flex align-items-center">
+                @isset($bill->receipt_id)
+                <a href="{{route('pdfElectricityArchived',['hour_number'=>request()->hour_number,'course_number'=>request()->course_number])}}"><i class="fa fa-file-pdf-o " aria-hidden="true" style="font-size: 28px;padding: 2px;border: 1px solid;cursor: pointer"></i></a>
+               @else()
+                <a href="{{route('pdfElectricity',['hour_number'=>request()->hour_number,'course_number'=>request()->course_number])}}"><i class="fa fa-file-pdf-o " aria-hidden="true" style="font-size: 28px;padding: 2px;border: 1px solid;cursor: pointer"></i></a>
+                @endisset()
+                <h2 class="col">الشركة السورية للكهرباء</h2>
+            </div>
             <div class="row row-info text-right mt-5">
-                <div class="col-lg-4 lable-info">
-                    <label>{{$bill->hour_number}} :   رقم الساعة  </label><br>
-                    <label>{{$bill->course_number}}:  رقم الدورة </label><br>
-                    <label>{{$bill->relase_date}} : تاريخ الاصدار  </label><br>
-                </div>
-                <div class="col-lg-4"></div>
+
                 <div class="col-lg-4 lable-info">
                     <label> {{$bill->next_relase_date}}:  تاريخ الاصدار القادم   </label><br>
                     <label> {{$bill->power}} : الطاقة </label><br>
-                    <label> {{$bill->previous_visa}} : التأشيرة الحالية </label><br>
-                    <label> {{$bill->current_visa}}  : التأشيرة القادمة</label><br>
+                    <label> {{$bill->current_visa}} : التأشيرة الحالية </label><br>
+                    <label> {{$bill->previous_visa}}  : التأشيرة القادمة</label><br>
+                </div>
+                <div class="col-lg-4"></div>
+
+                <div class="col-lg-4 lable-info">
+                    <label>{{$bill->hour_number}} :   رقم الساعة  </label><br>
+                    <label>{{$bill->course_number}}:  رقم الدورة </label><br>
+                    <label>{{$bill->name}} : الاسم  </label></label><br>
+                    <label>{{$bill->relase_date}} : تاريخ الاصدار  </label><br>
                 </div>
             </div>
             <div class="row row-table text-right mt-3">
@@ -33,10 +43,12 @@
                             <td><br></td>
                             <td> {{$bill->street}}: الشارع    </td>
                         </tr>
-                        <tr>
-                            <td> تاريخ الدفع :{{$bill->payment_date}}</td>
-                            <td> رقم ايصال الدفع :{{$bill->receipt_id}}</td>
-                        </tr>
+                        @isset($bill->receipt_id)
+                            <tr>
+                                <td> تاريخ الدفع :{{$bill->payment_date}}</td>
+                                <td> رقم ايصال الدفع :{{$bill->receipt_id}}</td>
+                            </tr>
+                        @endisset()
 
                         </tbody>
                     </table>
@@ -45,6 +57,7 @@
             <div class="text-left">
                 <a href="{{url()->previous()}}" class="btn btn-outline-dark">عودة</a>
             </div>
+            @isset($bill->receipt_id)
             <div class="mt-3 mb-3">
                 <div class="card card-header-pills">
                     <div class="card-header-pills">
@@ -93,6 +106,7 @@
                     </div>
                 </div>
             </div>
+            @endisset()
         </div><!-- end container -->
     </section><!-- end section -->
 

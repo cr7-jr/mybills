@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class billElecticityController extends Controller
 {
-    public function pay($hour_number, $course_number, $id_bank)
+    public function pay($hour_number, $course_number, $id_bank,$send_email = true)
     {
 
         $bill = file_get_contents("http://localhost:777/billingCorporation/public/api/getNewElectricityBill/$hour_number/$course_number");
@@ -26,26 +26,28 @@ class billElecticityController extends Controller
             $details = [
                 'body' => "تم دفع الفاتورة بنجاح ",
             ];
-            \Mail::to(Auth::user()->email)->send(new \App\Mail\send_msg_pay_successfully($details));
-            return \redirect('http://127.0.0.1:8000/en/myBills/new/electricity?hour_number=' . $hour_number);
+            if ($send_email) {
+                \Mail::to(Auth::user()->email)->send(new \App\Mail\send_msg_pay_successfully($details));
+                return \redirect('http://127.0.0.1:8000/en/myBills/new/electricity?hour_number=' . $hour_number);
+            }
         } else {
-            session()->flash('msg', 'الرصيد غير كافي لاتمام عملية الدفع');
+            session()->flash('msg', 'الرصيد غير كافي لدفع هذه الفاتورة');
             return \redirect('http://127.0.0.1:8000/en/myBills/new/electricity?hour_number=' . $hour_number);
         }
     } //end pay
-    public  function payAll(Request $request)
-    {
-        $hours = $request->number;
-        $courses = $request->course_number;
-        $bank_id = Auth::user()->bank_id;
-        $arr = [];
-        for ($i = 0; $i < count($hours); $i++) {
-            $this->pay($hours[$i], $courses[$i], $bank_id);
-            $arr[$i] = ' الدورة رقم ' . $courses[$i] . " " . session()->get('msg');
-        }
-        session()->flash('all_msg_results_pay', $arr);
-        return redirect(url()->previous());
-    } //end payAll
+    // public  function payAll(Request $request)
+    // {
+    //     $hours = $request->number;
+    //     $courses = $request->course_number;
+    //     $bank_id = Auth::user()->bank_id;
+    //     $arr = [];
+    //     for ($i = 0; $i < count($hours); $i++) {
+    //         $this->pay($hours[$i], $courses[$i], $bank_id);
+    //         $arr[$i] = ' الدورة رقم ' . $courses[$i] . " " . session()->get('msg');
+    //     }
+    //     session()->flash('all_msg_results_pay', $arr);
+    //     return redirect(url()->previous());
+    // } //end payAll
     public function show($hour_number, $course_number)
     {
         $bill = file_get_contents('http://localhost:777/billingCorporation/public/api/getNewElectricityBill/' . $hour_number . '/' . $course_number);

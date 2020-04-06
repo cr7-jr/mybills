@@ -73,6 +73,7 @@
                                     data-url="{{route('telecome.bill.payAll')}}"
                                     data-value="{{$bill->amount_due_of_payment}}"
                                     data-number="{{$bill->phone_number}}"
+                                    data-type="telecome"
                                     data-course_number="{{$bill->course_number}}" >اضف الى السلة
                             </button></a>
                             <a href="{{route('telecome.bills.view',[$bill->phone_number,$bill->course_number])}}"><button class="btn btn-outline-primary">عرض</button></a>
@@ -89,6 +90,7 @@
                                     data-url="{{route('electricity.bill.payAll')}}"
                                     data-value="{{$bill->amount_due_of_payment}}"
                                     data-number="{{$bill->hour_number}}"
+                                    data-type="electricity"
                                     data-course_number="{{$bill->course_number}}" >اضف الى السلة
                             </button></a>
                             <a href="{{route('electricity.bills.view',[$bill->hour_number,$bill->course_number])}}"><button class="btn btn-outline-primary">عرض</button></a>
@@ -105,6 +107,7 @@
                                     data-url="{{route('water.bill.payAll')}}"
                                     data-value="{{$bill->amount_due_of_payment}}"
                                     data-number="{{$bill->counter_number}}"
+                                    data-type="water"
                                     data-course_number="{{$bill->course_number}}" >اضف الى السلة
                             </button></a>
                             <a href="{{route('water.bills.view',[$bill->counter_number,$bill->course_number])}}"><button class="btn btn-outline-primary">عرض</button></a>

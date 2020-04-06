@@ -1,10 +1,16 @@
 @extends('layouts.client.app')
 @section('content')
 
-
     <section class="section overfree text-right">
         <div class="container">
-            <h2>الشركة السورية للاتصالات</h2>
+           <div class="d-flex align-items-center">
+               @isset($bill->receipt_id)
+               <a href="{{route('pdfTelecomeArchived',['phone_number'=>request()->phone_number,'course_number'=>request()->course_number])}}"><i class="fa fa-file-pdf-o " aria-hidden="true" style="font-size: 28px;padding: 2px;border: 1px solid;cursor: pointer"></i></a>
+               @else()
+              <a href="{{route('pdfTelecome',['phone_number'=>request()->phone_number,'course_number'=>request()->course_number])}}"><i class="fa fa-file-pdf-o " aria-hidden="true" style="font-size: 28px;padding: 2px;border: 1px solid;cursor: pointer"></i></a>
+               @endisset()
+               <h2 class="col">الشركة السورية للاتصالات</h2>
+           </div>
             <div class="row row-info text-right mt-5">
                 <div class="col-lg-4 lable-info">
                     <label>{{$bill->phone_number}} : رقم الهاتف  </label><br>
@@ -15,7 +21,7 @@
                 <div class="col-lg-4 lable-info">
                     <label> {{$bill->relase_date}}: تاريخ الاصدار  </label><br>
                     <label> {{$bill->next_relase_date}} : تاريخ الاصدار القادم </label><br>
-                    <label> {{$bill->local_calls}} : الاتصالت المحلية </label><br>
+                    <label> {{$bill->}} : الاتصالت المحلية </label><br>
                     <label> {{$bill->international_calls}}  : الاتصالات الدولية</label><br>
                 </div>
             </div>
@@ -35,10 +41,12 @@
                             <td><br></td>
                             <td> {{$bill->street}}: الشارع    </td>
                         </tr>
+                         @isset($bill->receipt_id)
                         <tr>
                             <td> تاريخ الدفع :{{$bill->payment_date}}</td>
                             <td> رقم ايصال الدفع :{{$bill->receipt_id}}</td>
                         </tr>
+                        @endisset()
                         </tbody>
                     </table>
                 </div>
@@ -46,6 +54,7 @@
             <div class="text-left">
                 <a href="{{url()->previous()}}" class="btn btn-outline-dark">عودة</a>
             </div>
+            @isset($bill->receipt_id)
             <div class="mt-3 mb-3">
                 <div class="card card-header-pills">
                     <div class="card-header-pills">
@@ -94,6 +103,7 @@
                     </div>
                 </div>
             </div>
+            @endisset()
         </div><!-- end container -->
     </section><!-- end section -->
 

@@ -8,17 +8,12 @@ use Illuminate\Http\Request;
 
 class placeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $places = place::when($request->searsh, function ($q) use ($request) {
-
             return $q->where('location', 'like', '%' . $request->searsh . '%');
-        })->paginate(5);
+        })->paginate(2);
         return view('dashboard.admin.place.index', compact('places'));
     }
 

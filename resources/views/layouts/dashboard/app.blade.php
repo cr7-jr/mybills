@@ -31,7 +31,6 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     {{-- font awesome --}}
-    {{-- font awesome --}}
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
 
 

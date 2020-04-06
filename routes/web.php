@@ -24,6 +24,7 @@ Route::group(
 
         Route::prefix('myBills')->group(
             function () {
+
                 Route::get('verify/{token}', 'client\clientController@verify')->name('verify');
                 Route::get('resetPassword', 'client\clientController@showResetPasswordForm')->name('showResetPasswordForm');
                 Route::post('searshYourAccount', 'client\clientController@searshYourAccount')->name('searshYourAccount');
@@ -56,6 +57,8 @@ Route::group(
                 Route::post('Telecome/bill/pay/all', 'client\billTelecomeController@payAll')->name('telecome.bill.payAll');
                 Route::post('Electricity/bill/pay/all', 'client\billElecticityController@payAll')->name('electricity.bill.payAll');
                 Route::post('Water/bill/pay/all', 'client\billWaterController@payAll')->name('water.bill.payAll');
+
+                Route::post('bill/pay/all', 'client\payController@payAll')->name('bill.payAll');
             });
 
             Route::prefix('myBills/new')->group(function () {
@@ -81,5 +84,18 @@ Route::group(
         Route::get('/', function () {
             return redirect()->route('login');
         });
+       /* Route::get('/',function(){
+                $data = [
+                    'foo' => 'bar'
+                ];
+                $pdf = PDF::loadView('welcome', $data);
+                return $pdf->stream('document.pdf');
+        });*/
     }
 );
+Route::get('pdfTelecome','additionsController@pdfTelecome')->name('pdfTelecome');
+Route::get('pdfElectricity','additionsController@pdfElectricity')->name('pdfElectricity');
+Route::get('pdfWater','additionsController@pdfWater')->name('pdfWater');
+Route::get('pdfTelecomeArchived','additionsController@pdfTelecomeArchived')->name('pdfTelecomeArchived');
+Route::get('pdfElectricityArchived','additionsController@pdfElectricityArchived')->name('pdfElectricityArchived');
+Route::get('pdfWaterArchived','additionsController@pdfWaterArchived')->name('pdfWaterArchived');

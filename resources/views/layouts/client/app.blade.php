@@ -145,7 +145,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="form-pay-all" method="post" class="d-inline">
+                <form class="form-pay-all" method="post" class="d-inline" action="{{route('bill.payAll')}}">
                     @csrf()
                 <table id="table-bill" class="table tab-content">
                     <thead>
@@ -153,13 +153,14 @@
                         <th>رقم الخاص</th>
                         <th>رقم الدورة </th>
                         <th>القيمة</th>
+                        <th>نوع</th>
                     </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">اغلاق</button>
-                    <input type="submit" class="btn btn-outline-success btn-pay-all d-none" value="ادفع">
+                    <input type="submit" class="btn btn-outline-success btn-pay-all " value="ادفع">
                 </div>
                 </form>
 

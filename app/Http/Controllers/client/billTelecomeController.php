@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Redirect;
 
 class billTelecomeController extends Controller
 {
-    public function pay($phone_number, $course_number, $id_bank, Request $request)
-    {
 
+    public function pay($phone_number, $course_number, $id_bank, $send_email = true)
+    {
         $bill = file_get_contents("http://localhost:777/billingCorporation/public/api/getNewTelecomeBill/$phone_number/$course_number");
         $bill = json_decode($bill);
         $bill = $bill->data;
@@ -27,26 +27,30 @@ class billTelecomeController extends Controller
             $details = [
                 'body' => "تم دفع الفاتورة بنجاح ",
             ];
-            \Mail::to(Auth::user()->email)->send(new \App\Mail\send_msg_pay_successfully($details));
-            return \redirect('http://127.0.0.1:8000/en/myBills/new/telecome?phone_number=' . $phone_number);
+            if ($send_email) {
+                \Mail::to(Auth::user()->email)->send(new \App\Mail\send_msg_pay_successfully($details));
+                return \redirect('http://127.0.0.1:8000/en/myBills/new/electricity?hour_number=' . $phone_number);
+            }
+
         } else {
-            session()->flash('msg', 'الرصيد غير كافي لاتمام عملية الدفع');
+            session()->flash('msg', 'الرصيد غير كافي لدفع هذه الفاتورة');
             return \redirect('http://127.0.0.1:8000/en/myBills/new/telecome?phone_number=' . $phone_number);
         }
     } //end pay
-    public  function payAll(Request $request)
-    {
-        $phones = $request->number;
-        $courses = $request->course_number;
-        $bank_id = Auth::user()->bank_id;
-        $arr = [];
-        for ($i = 0; $i < count($phones); $i++) {
-            $this->pay($phones[$i], $courses[$i], $bank_id, $request);
-            $arr[$i] = ' الدورة رقم ' . $courses[$i] . " " . session()->get('msg');
-        }
-        session()->flash('all_msg_results_pay', $arr);
-        return redirect(url()->previous());
-    } //end payAll
+
+    // public  function payAll(Request $request)
+    // {
+    //     $phones = $request->number;
+    //     $courses = $request->course_number;
+    //     $bank_id = Auth::user()->bank_id;
+    //     $arr = [];
+    //     for ($i = 0; $i < count($phones); $i++) {
+    //         $this->pay($phones[$i], $courses[$i], $bank_id, $request);
+    //         $arr[$i] = ' الدورة رقم ' . $courses[$i] . " " . session()->get('msg');
+    //     }
+    //     session()->flash('all_msg_results_pay', $arr);
+    //     return redirect(url()->previous());
+    // } //end payAll
     public function show($phone_number, $course_number)
     {
         $bill = file_get_contents('http://localhost:777/billingCorporation/public/api/getNewTelecomeBill/' . $phone_number . '/' . $course_number);

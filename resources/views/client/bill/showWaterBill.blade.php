@@ -4,7 +4,14 @@
 
     <section class="section overfree text-right">
         <div class="container">
-            <h2> المؤسسة العامة للمياه </h2>
+            <div class="d-flex align-items-center">
+                @isset($bill->receipt_id)
+                <a href="{{route('pdfWaterArchived',['counter_number'=>request()->counter_number,'course_number'=>request()->course_number])}}"><i class="fa fa-file-pdf-o " aria-hidden="true" style="font-size: 28px;padding: 2px;border: 1px solid;cursor: pointer"></i></a>
+                 @else()
+                <a href="{{route('pdfWater',['counter_number'=>request()->counter_number,'course_number'=>request()->course_number])}}"><i class="fa fa-file-pdf-o " aria-hidden="true" style="font-size: 28px;padding: 2px;border: 1px solid;cursor: pointer"></i></a>
+                 @endisset()
+                <h2 class="col"> المؤسسة العامة للمياه </h2>
+            </div>
             <div class="row row-info text-right mt-5">
                 <div class="col-lg-4 lable-info">
                     <label>{{$bill->counter_number}} : رقم العداد  </label><br>
@@ -32,10 +39,12 @@
                             <td><br></td>
                             <td> الشارع : {{$bill->street}} </td>
                         </tr>
-                        <tr>
-                            <td> تاريخ الدفع :{{$bill->payment_date}}</td>
-                            <td> رقم ايصال الدفع :{{$bill->receipt_id}}</td>
-                        </tr>
+                        @isset($bill->receipt_id)
+                            <tr>
+                                <td> تاريخ الدفع :{{$bill->payment_date}}</td>
+                                <td> رقم ايصال الدفع :{{$bill->receipt_id}}</td>
+                            </tr>
+                        @endisset()
 
                         </tbody>
                     </table>
@@ -44,6 +53,8 @@
             <div class="text-left">
                 <a href="{{url()->previous()}}" class="btn btn-outline-primary ">عودة</a>
             </div>
+            @isset($bill->receipt_id)
+
             <div class="mt-3 mb-3">
                 <div class="card card-header-pills">
                     <div class="card-header-pills">
@@ -92,6 +103,7 @@
                     </div>
                 </div>
             </div>
+            @endisset()
 
         </div><!-- end container -->
     </section><!-- end section -->
