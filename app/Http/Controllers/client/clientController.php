@@ -40,6 +40,14 @@ class clientController extends Controller
         session()->flash('success', 'The Verified Is Completed Success');
         return redirect()->route('home');
     }
+    public function reSendEmailVerified(User $user)
+    {
+        $user->token=Str::random(25);
+        $user->sendVerificationEmail();
+        $user->save();
+        session()->flash('reSendEmailVerifiedSuccess','تم اعادة ارسال بريد التاكيد بنجاع ');
+        return redirect()->back();
+    }
     public  function showResetPasswordForm()
     {
         return view('client.password.resetPassword');

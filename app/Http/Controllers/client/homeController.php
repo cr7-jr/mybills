@@ -30,65 +30,29 @@ class homeController extends Controller
     } //end index
     public function telecome(Request $request)
     {
-        $request->validate([
+        /*$request->validate([
             'phone_number' => 'required|numeric'
-        ]);
-
+        ]);*/
         $phone_number = $request->phone_number;
         $data = file_get_contents('http://localhost:777/billingCorporation/public/api/newTelecomeBill?searsh=' . $phone_number);
         $data = json_decode($data);
         $bills = $data->data;
-
-        if ($bills == "هذا الرقم غير موجود") {
-            $dataar = file_get_contents('http://localhost:777/billingCorporation/public/api/archivedTelecomeBill?searsh=' . $phone_number);
-            $dataar = json_decode($dataar);
-            $billsar = $dataar->data;
-            if ($billsar == "هذا الرقم غير موجود") {
-                return view('error.4042');
-            }
-        }
         return view('client.bill.yourBills', compact('bills'));
     } //end telecome
     public function water(Request $request)
     {
-        $request->validate([
-            'counter_number' => 'required|numeric'
-        ]);
-
         $counter_number = $request->counter_number;
-
         $data = file_get_contents('http://localhost:777/billingCorporation/public/api/newWaterBill?searsh=' . $counter_number);
         $data = json_decode($data);
         $bills = $data->data;
-        if ($bills == "هذا الرقم غير موجود") {
-            $dataar = file_get_contents('http://localhost:777/billingCorporation/public/api/archivedWaterBill?searsh=' . $counter_number);
-            $dataar = json_decode($dataar);
-            $billsar = $dataar->data;
-            if ($billsar == "هذا الرقم غير موجود") {
-                return view('error.4042');
-            }
-        }
         return view('client.bill.yourBills', compact('bills'));
     } //end water
     public function electricity(Request $request)
     {
-
-        $request->validate([
-            'hour_number' => 'required|numeric'
-        ]);
-
         $hour_number = $request->hour_number;
         $data = file_get_contents('http://localhost:777/billingCorporation/public/api/newElectricityBill?searsh=' . $hour_number);
         $data = json_decode($data);
         $bills = $data->data;
-        if ($bills == "هذا الرقم غير موجود") {
-            $dataar = file_get_contents('http://localhost:777/billingCorporation/public/api/archivedElectricityBill?searsh=' . $hour_number);
-            $dataar = json_decode($dataar);
-            $billsar = $dataar->data;
-            if ($billsar == "هذا الرقم غير موجود") {
-                return view('error.4042');
-            }
-        }
         return view('client.bill.yourBills', compact('bills'));
     } //end electricity
 }

@@ -54,10 +54,13 @@
         {
             position: relative;
         }
+
+
     </style>
 
     {{-- font awesome --}}
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+@livewireStyles
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light">
@@ -87,13 +90,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">اتصل بنا</a>
             </li>
+                @else()
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('dashboard.admin')}}">لوحة التحكم</a>
+                </li>
             @endif
 
-            @if(Auth::user()->hasRole('admin')||Auth::user()->hasRole('super_admin'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('dashboard.admin')}}">لوحة التحكم</a>
-            </li>
-            @endif
+
 
 
             <div class="btn-group">
@@ -171,7 +174,18 @@
     @yield('content')
 </div>
 @stack('script')
-
+<script>
+$('.input-search').on('keydown',(event)=>{
+    if(event.keyCode==32)
+    {
+        event.preventDefault();
+    }
+});
+$('.btn-search').click((event)=>{
+    window.livewire.emit('clearTextInInput')
+})
+</script>
+@livewireScripts
 </body>
 </html>
 

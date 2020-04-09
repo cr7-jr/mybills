@@ -21,7 +21,7 @@
                 <div class="col-lg-4 lable-info">
                     <label> {{$bill->relase_date}}: تاريخ الاصدار  </label><br>
                     <label> {{$bill->next_relase_date}} : تاريخ الاصدار القادم </label><br>
-                    <label> {{$bill->}} : الاتصالت المحلية </label><br>
+                    <label> {{$bill->local_calls}} : الاتصالت المحلية </label><br>
                     <label> {{$bill->international_calls}}  : الاتصالات الدولية</label><br>
                 </div>
             </div>
