@@ -6,7 +6,6 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>my bills</title>
 <link href="https://fonts.googleapis.com/css?family=Harmattan&display=swap" rel="stylesheet">
-
     {{-- Styles --}}
     <style>
      .lore
@@ -18,12 +17,8 @@
     <link href="{{ asset('/css/auth/auth.css') }}" rel="stylesheet">
     {{-- font awesome --}}
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light ">

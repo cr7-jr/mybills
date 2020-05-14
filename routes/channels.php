@@ -12,5 +12,11 @@
 */
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+    return true;
+});
+Broadcast::channel('new-question', function () {
+
+    if(auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
+    return true;
+    return false;
 });

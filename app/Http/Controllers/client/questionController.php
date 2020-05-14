@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use App\Events\addNewQuestions;
 
 class questionController extends Controller
 {
@@ -43,6 +44,9 @@ class questionController extends Controller
         $question = question::create($request_data);
         $users = User::whereRoleIs('super_admin')->orWhereRoleIs('admin')->get();
         Notification::send($users, new addNewQuestion($question));
+        event(new addNewQuestions($question));
+
+
         session()->flash('success', __('site.msg_add'));
         return redirect(route('Question.index'));
     } //end store

@@ -10,3 +10,4 @@
             <a href="{{route('reSendEmailVerified',auth()->id())}}">resend </a>
         </div>
     </div>
+    <a href="/logout">تسجيل خروج</a>

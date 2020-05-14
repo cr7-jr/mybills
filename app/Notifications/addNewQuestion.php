@@ -24,7 +24,7 @@ class addNewQuestion extends Notification
         return [
             'data' => [
                 'id' => $this->question->id,
-                'text_question' => "<a href='questionAwaitingTheAnswer?searsh=" . $this->question->id . "'><p style='margin-bottom: 0px'> يوجد سوال جديد </p>" . $this->question->text_question . "</a>",
+                'text_question' => "  يوجد سوال جديد ".'<br/>' . $this->question->text_question ,
                 'status_view' => $this->question->status_view,
                 'center_type' => $this->question->center_type,
                 'user_id' => $this->question->user_id,

@@ -53,4 +53,8 @@ class User extends Authenticatable
         $this->notify(new sendVerify($this));
 
     }
+    public function News()
+    {
+        return $this->belongsToMany(news::class);
+    }
 }

@@ -11,8 +11,8 @@ class InputSearchHourNumber extends Component
     protected $listeners = ['clearTextInInput'];
     public  function clearTextInInput()
     {
-
-
+        $this->hour_number=null;
+        $this->found=0;
     }
 
     public function render()

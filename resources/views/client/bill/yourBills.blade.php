@@ -74,7 +74,7 @@
                                     data-value="{{$bill->amount_due_of_payment}}"
                                     data-number="{{$bill->phone_number}}"
                                     data-type="telecome"
-                                    data-course_number="{{$bill->course_number}}" >اضف الى السلة
+                                    data-course_number="" >اضف الى السلة
                             </button></a>
                             <a href="{{route('telecome.bills.view',[$bill->phone_number,$bill->course_number])}}"><button class="btn btn-outline-primary">عرض</button></a>
                            <form class="d-inline" action="{{route('telecome.bill.pay',[$bill->phone_number,$bill->course_number,Auth::user()->bank_id])}}" method="post">
@@ -91,7 +91,7 @@
                                     data-value="{{$bill->amount_due_of_payment}}"
                                     data-number="{{$bill->hour_number}}"
                                     data-type="electricity"
-                                    data-course_number="{{$bill->course_number}}" >اضف الى السلة
+                                    data-course_number="" >اضف الى السلة
                             </button></a>
                             <a href="{{route('electricity.bills.view',[$bill->hour_number,$bill->course_number])}}"><button class="btn btn-outline-primary">عرض</button></a>
                             <form class="d-inline" action="{{route('electricity.bill.pay',[$bill->hour_number,$bill->course_number,Auth::user()->bank_id])}}" method="post">
@@ -108,7 +108,7 @@
                                     data-value="{{$bill->amount_due_of_payment}}"
                                     data-number="{{$bill->counter_number}}"
                                     data-type="water"
-                                    data-course_number="{{$bill->course_number}}" >اضف الى السلة
+                                    data-course_number="" >اضف الى السلة
                             </button></a>
                             <a href="{{route('water.bills.view',[$bill->counter_number,$bill->course_number])}}"><button class="btn btn-outline-primary">عرض</button></a>
                             <form class="d-inline" action="{{route('water.bill.pay',[$bill->counter_number,$bill->course_number,Auth::user()->bank_id])}}" method="post">
@@ -149,3 +149,11 @@
     </style>
     @endpush
 
+@push('script')
+<script>
+    $('.btn-add-basket').each(function(){
+        let randomNumber = "mybills-" + Math.ceil(Math.random() * 100000000);
+        $(this).attr('data-course_number',randomNumber)
+    })
+</script>
+@endpush

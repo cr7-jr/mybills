@@ -1,4 +1,15 @@
 $(document).ready(function() {
+    var channel = window.Echo.channel("private-new-question");
+    channel.listen(".add", function(data) {
+        /*var spanNotiCount = $(".span-noti-count ");
+        spanNotiCount.text(parseInt(spanNotiCount.text()) + 1);*/
+
+        /*if (spanNotiCount.text() != 0) {
+            spanNotiCount.removeClass("d-none");
+            spanNotiCount.fadeIn(100);
+        }*/
+        window.livewire.emit('renderListNotifications')
+    });
     $(".filter-date").on("change", function() {
         $(this)
             .closest("form")
@@ -8,9 +19,7 @@ $(document).ready(function() {
         $(".span-notifications").css("display", "block");
     }
     $(".con-span-noti-count").on("click", function() {
-        $(".span-noti-count")
-            .delay(2000)
-            .fadeOut(500);
+
         $(this).width("42.797");
     });
 });

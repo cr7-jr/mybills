@@ -6,6 +6,8 @@ return [
             'users' => 'c,r,u,d',
             'questions' => 'c,r,u,d,s',
             'places' => 'c,r,d',
+            'categoriesNews' => 'c,r,sh',
+            'news' => 'c,r,u,d'
 
 
         ],
@@ -19,5 +21,6 @@ return [
         'u' => 'update',
         'd' => 'delete',
         's' => 'send',
+        'sh' => 'show'
     ]
 ];

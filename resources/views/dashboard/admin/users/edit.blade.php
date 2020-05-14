@@ -55,8 +55,8 @@
         </div>
 
         <!--start permissions section-->
-        <?php $models=['users','places','questions'];?>
-        <?php $options=['create','read','update','delete','send'];?>
+        <?php $models=['users','places','categoriesNews','news','questions'];?>
+        <?php $options=['create','read','update','delete','send','show'];?>
         <div class="row">
             <div class="col-md-12">
                 <h5>@lang('site.permissions')</h5>
@@ -67,8 +67,7 @@
                         </li>
                         <li>
                             @foreach($options as $option)
-                                @if ($option=='send' && ($model=='users'||$model=='places'))
-
+                                @if ($option=='send' && ($model=='users'||$model=='places'||$model=='news'))
                             @else
                                 <label>@lang('site.'.$option)</label>                                       {{-- $user->hasPermission() --}}
                                 <input type="checkbox" name="permissions[]"  value="{{$option}}_{{$model}}" {{$user->can($option.'_'.$model)?'checked':''}}>

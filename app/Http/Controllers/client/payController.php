@@ -123,6 +123,8 @@ class payController extends Controller
             $details = [
                 'body' => "تم دفع الفاتورة بنجاح ",
             ];
+            \Mail::to(Auth::user()->email)->send(new \App\Mail\send_msg_pay_successfully($details));
+
         }
         session()->flash('all_msg_results_pay', $arr);
         return redirect(url()->previous());

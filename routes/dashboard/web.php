@@ -16,6 +16,8 @@ Route::group(
             Route::resource('/place', 'placeController');
             //question
             Route::resource('/question', 'questionController');
+            Route::resource('categoriesNews', 'categoriesNewsController');
+            Route::resource('categoriesNews.news', 'newsController');
             Route::get('/questionAwaitingTheAnswer', 'questionController@questionAwaitingTheAnswer')->name('questionAwaitingTheAnswer');
             Route::get('/pendingQuestions', 'questionController@pendingQuestions')->name('pendingQuestions');
             Route::post('/SendReply/{question}', 'questionController@sendReply')->name('questionSendReply');

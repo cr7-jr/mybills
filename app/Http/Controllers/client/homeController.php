@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\question;
 use App\User;
 use Illuminate\Http\Request;
+use App\Events\pop;
+use App\Events\addNewQuestion;
 
 class homeController extends Controller
 {

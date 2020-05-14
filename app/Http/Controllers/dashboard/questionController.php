@@ -83,6 +83,7 @@ class questionController extends Controller
     {
 
         $questions = question::where('status_view', 0)->when($request->searsh, function ($query) use ($request) {
+
             return $query->where('id', '=', $request->searsh);
         })->paginate(3);
 
