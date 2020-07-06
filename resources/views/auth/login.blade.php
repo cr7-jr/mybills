@@ -14,6 +14,7 @@
        cursor: pointer;
      }
     </style>
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/auth/auth.css') }}" rel="stylesheet">
     {{-- font awesome --}}

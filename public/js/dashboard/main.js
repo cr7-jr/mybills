@@ -8,7 +8,7 @@ $(document).ready(function() {
             spanNotiCount.removeClass("d-none");
             spanNotiCount.fadeIn(100);
         }*/
-        window.livewire.emit('renderListNotifications')
+        window.livewire.emit("renderListNotifications");
     });
     $(".filter-date").on("change", function() {
         $(this)
@@ -19,7 +19,6 @@ $(document).ready(function() {
         $(".span-notifications").css("display", "block");
     }
     $(".con-span-noti-count").on("click", function() {
-
         $(this).width("42.797");
     });
 });

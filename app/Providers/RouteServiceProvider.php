@@ -26,7 +26,6 @@ class RouteServiceProvider extends ServiceProvider
     public const clientHOME = '/myBills';
     public const RegisterHOME = '/register';
     public const ADMIN_HOME = '/dashboard/admin';
-    public const BANK_HOME = '/dashboard/bank';
 
     /**
      * Define your route model bindings, pattern filters, etc.

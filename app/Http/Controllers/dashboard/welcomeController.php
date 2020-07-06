@@ -16,17 +16,15 @@ class welcomeController extends Controller
     }
     public function admin(Request $request)
     {
-
-
-        $count_telecome = file_get_contents('http://localhost:777/billingCorporation/public/api/archivedTelecomeBill/count?searsh=' . $request->searsh);
+        $count_telecome = file_get_contents(Billing_CORPORATION_DOMAIN_NAME . 'api/archivedTelecomeBill/count?searsh=' . $request->searsh);
         $count_telecome = json_decode($count_telecome, true);
         $count_telecome = $count_telecome['count'];
 
-        $count_water = file_get_contents('http://localhost:777/billingCorporation/public/api/archivedWaterBill/count?searsh=' . $request->searsh);
+        $count_water = file_get_contents(Billing_CORPORATION_DOMAIN_NAME . 'api/archivedWaterBill/count?searsh=' . $request->searsh);
         $count_water = json_decode($count_water, true);
         $count_water = $count_water['count'];
 
-        $count_electricty = file_get_contents('http://localhost:777/billingCorporation/public/api/archivedElectricityBill/count?searsh=' . $request->searsh);
+        $count_electricty = file_get_contents(Billing_CORPORATION_DOMAIN_NAME . 'api/archivedElectricityBill/count?searsh=' . $request->searsh);
         $count_electricty = json_decode($count_electricty, true);
         $count_electricty = $count_electricty['count'];
 
@@ -50,7 +48,7 @@ class welcomeController extends Controller
     private function _filter(Request $request)
     {
         $searsh = $request->searsh;
-        $arr = ['yesterday', 'current_year', 'last_year', '0', '30', '7','all'];
+        $arr = ['yesterday', 'current_year', 'last_year', '0', '30', '7', 'all'];
         if (in_array($searsh, $arr)) {
             if ($searsh == 'yesterday') {
                 $count = DB::select(
@@ -73,12 +71,10 @@ class welcomeController extends Controller
                     where
                     year(created_at) =' . $year
                 );
-            }else if($searsh=='all')
-            {
-                $count=User::count();
+            } else if ($searsh == 'all') {
+                $count = User::count();
                 return $count;
-            }
-            else {
+            } else {
 
                 $count = DB::select(
                     'select count(*) as count from users

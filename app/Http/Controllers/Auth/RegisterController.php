@@ -13,22 +13,15 @@ use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
-
-
     use RegistersUsers;
-
-
     protected $redirectTo = RouteServiceProvider::HOME;
     protected $redirectToRegisterHOME = RouteServiceProvider::RegisterHOME;
     protected $redirectToClientSite = RouteServiceProvider::clientHOME;
     protected $redirectToDashboardAdmin = RouteServiceProvider::ADMIN_HOME;
-
-
     public function __construct()
     {
         $this->middleware('guest');
     }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -59,7 +52,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $url = 'http://localhost:777/bemoBank/public/api/checkRegister/' . $data['bank_id'] . '/idNumber/' . $data['id_number'];
+        $url = BANK_DOMAIN_NAME.'api/checkRegister/' . $data['bank_id'] . '/idNumber/' . $data['id_number'];
         $found = file_get_contents($url);
 
         if ($found == 'true') {

@@ -19,7 +19,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
 
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
@@ -293,7 +292,7 @@
                         <span class="span-Basket btn btn-danger"></span>
                     </a>
                     <a class="dropdown-item" href="{{route('Client.edit',auth()->id())}}" >تغير اعدادات الحساب </a>
-                    <a class="dropdown-item" href="#">الرصيد الكلي : {{file_get_contents("http://localhost:777/bemoBank/public/api/getAccountInformation/".Auth::user()->bank_id)}}</a>
+                    <a class="dropdown-item" href="#">الرصيد الكلي : {{file_get_contents(BANK_DOMAIN_NAME."api/getAccountInformation/".Auth::user()->bank_id)}}</a>
                     <a class="dropdown-item" href="/logout" > تسجيل خروج</a>
                 </div>
             </div>

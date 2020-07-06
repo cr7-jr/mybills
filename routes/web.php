@@ -1,6 +1,10 @@
 <?php
+
 use Illuminate\Support\Facades\Auth;
 use App\Events\pop;
+
+define('BANK_DOMAIN_NAME', 'http://localhost:777/bemoBank/public/');
+define('Billing_CORPORATION_DOMAIN_NAME', 'http://localhost:777/billingCorporation/public/');
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
@@ -88,4 +92,10 @@ Route::get('reSendEmailVerified/{user}', 'client\clientController@reSendEmailVer
 Route::any('a', function () {
     event(new pop("hello"));
     return view('welcome');
+});
+Route::get('sendEmails',function (){
+    $emails=\App\emails::chunk(50,function ($data){
+        dispatch(new \App\Jobs\sendEmail($data));
+    });
+    return "job run !";
 });

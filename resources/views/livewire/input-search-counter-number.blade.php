@@ -4,6 +4,8 @@
         <span wire:loading>wait</span>
     </div>
     <a wire:click="clearTextInInput" href="{{route('new.water',['counter_number'=>$counter_number])}}" style="background-color: var(--colo_dark_bule) !important;" class="btn-search {{$found===1?'d-=-block':'d-none'}} btn btn-primary mt-2">عرض</a>
+    <p class="{{$found===0?'d-block':'d-none'}}"> {{$text_not_found .' ' .$counter_number}}</p>
+
 </div>
 <style>
     span{

@@ -38,7 +38,7 @@ class userController extends Controller
 
     public function store(userRequestCreate $request)
     {
-        $url = 'http://localhost:777/bemoBank/public/api/checkRegister/' . $request->bank_id . '/idNumber/' . $request->id_number;
+        $url = BANK_DOMAIN_NAME.'api/checkRegister/' . $request->bank_id . '/idNumber/' . $request->id_number;
         $found = file_get_contents($url);
         if ($found == 'true') {
             $request_data = $request->except(['password', 'password_confirmation', 'permissions']);

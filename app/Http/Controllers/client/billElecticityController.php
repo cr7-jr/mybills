@@ -3,31 +3,29 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\sendEmailPaySuccess;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class billElecticityController extends Controller
 {
-    public function pay($hour_number, $course_number, $id_bank,$send_email = true)
+    public function pay($hour_number, $course_number, $id_bank, $send_email = true)
     {
 
-        $bill = file_get_contents("http://localhost:777/billingCorporation/public/api/getNewElectricityBill/$hour_number/$course_number");
+        $bill = file_get_contents(Billing_CORPORATION_DOMAIN_NAME . "api/getNewElectricityBill/$hour_number/$course_number");
         $bill = json_decode($bill);
         $bill = $bill->data;
 
         $amount_due_of_payment = $bill->amount_due_of_payment;
-        $result_check = file_get_contents('http://localhost:777/bemoBank/public/api/checkInformation/' . $id_bank . '/value/' . $amount_due_of_payment . '?number=' . $hour_number . '&course_number=' . $course_number . '&' . 'bill_type=electricity');
+        $result_check = file_get_contents(BANK_DOMAIN_NAME . 'api/checkInformation/' . $id_bank . '/value/' . $amount_due_of_payment . '?number=' . $hour_number . '&course_number=' . $course_number . '&' . 'bill_type=electricity');
 
         $result_check = json_decode($result_check);
 
         if ($result_check[0] == true) {
-            file_get_contents('http://localhost:777/billingCorporation/public/api/complatePayElectricity/' . $hour_number . '/' . $course_number . '/' . $result_check[1] . '/' . auth()->id());
+            file_get_contents(Billing_CORPORATION_DOMAIN_NAME . 'api/complatePayElectricity/' . $hour_number . '/' . $course_number . '/' . $result_check[1] . '/' . auth()->id());
             session()->flash('msg', 'تم الدفع');
-            $details = [
-                'body' => "تم دفع الفاتورة بنجاح ",
-            ];
             if ($send_email) {
-                \Mail::to(Auth::user()->email)->send(new \App\Mail\send_msg_pay_successfully($details));
+                dispatch(new sendEmailPaySuccess(\auth()->user()->email));
                 return \redirect('http://127.0.0.1:8000/en/myBills/new/electricity?hour_number=' . $hour_number);
             }
         } else {
@@ -50,17 +48,17 @@ class billElecticityController extends Controller
     // } //end payAll
     public function show($hour_number, $course_number)
     {
-        $bill = file_get_contents('http://localhost:777/billingCorporation/public/api/getNewElectricityBill/' . $hour_number . '/' . $course_number);
+        $bill = file_get_contents(Billing_CORPORATION_DOMAIN_NAME . 'api/getNewElectricityBill/' . $hour_number . '/' . $course_number);
         $bill = json_decode($bill);
         $bill = $bill->data;
         return view('client.bill.showElectricityBill', compact('bill'));
     } // end show
     public function showArchived($hour_number, $course_number)
     {
-        $bill = file_get_contents('http://localhost:777/billingCorporation/public/api/getArchivedElectricityBill/' . $hour_number . '/' . $course_number);
+        $bill = file_get_contents(Billing_CORPORATION_DOMAIN_NAME . 'api/getArchivedElectricityBill/' . $hour_number . '/' . $course_number);
         $bill = json_decode($bill);
         $bill = $bill->data;
-        $receipt = file_get_contents('http://localhost:777/bemoBank/public/api/getReceipt/' . $bill->receipt_id);
+        $receipt = file_get_contents(BANK_DOMAIN_NAME . 'api/getReceipt/' . $bill->receipt_id);
         $receipt = json_decode($receipt);
         $receipt = $receipt->data;
         return view('client.bill.showElectricityBill', compact('bill', 'receipt'));
@@ -70,12 +68,12 @@ class billElecticityController extends Controller
         $request->validate([
             'hour_number' => 'required|numeric'
         ]);
-        $electricity_statistic = file_get_contents('http://localhost:777/billingCorporation/public/api/electricity/RestoreConsumptionRates?hour_number=' . $request->hour_number);
+        $electricity_statistic = file_get_contents(Billing_CORPORATION_DOMAIN_NAME . 'api/electricity/RestoreConsumptionRates?hour_number=' . $request->hour_number);
         $electricity_statistic = json_decode($electricity_statistic);
         $statistic = $electricity_statistic->data;
         $code = $electricity_statistic->code;
         $hour_number = $request->hour_number;
-        $data = file_get_contents('http://localhost:777/billingCorporation/public/api/archivedElectricityBill?searsh=' . $hour_number);
+        $data = file_get_contents(Billing_CORPORATION_DOMAIN_NAME . 'api/archivedElectricityBill?searsh=' . $hour_number);
         $data = json_decode($data);
         $bills = $data->data;
         if ($bills == "هذا الرقم غير موجود") {
